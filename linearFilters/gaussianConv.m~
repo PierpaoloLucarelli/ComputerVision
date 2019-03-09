@@ -1,0 +1,7 @@
+function imOut = gaussianConv(img, sigmax, sigmay)
+    sigmas = [sigmax, sigmay];
+    1Dgauss = 
+    for i=1:2
+        
+    end
+end
