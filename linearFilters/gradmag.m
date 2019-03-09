@@ -7,10 +7,6 @@ function [mag, or] = gradmag(img, sigma)
     ykernel = xkernel.';
     xGrad = conv2(img, xkernel, 'same');
     yGrad = conv2(img, ykernel, 'same');
-    
-    % calculate magnitude of gradient
     mag = sqrt(xGrad.^2 + yGrad.^2);
-    
-    % calculate orienation of gradient
     or = atan2(xGrad, yGrad);
 end
