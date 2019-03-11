@@ -14,14 +14,14 @@ loc1                  = DoG(im1, 0.01);
 [r1, c1, sigma1]      = harris(im1, loc1);
 orient1               = zeros(size(sigma1));
 % Pay attention to the oder of parameters [c',r'] (equal to [x,y])
-[coord1, descriptor1] = sift(single(rgb2gray(im1)), 'frames', [c1'; r1'; sigma1'; orient1']);
+[coord1, descriptor1] = vl_sift(single(rgb2gray(im1)), 'frames', [c1; r1; sigma1; orient1]);
 %  Custom implementation of sift. You can compare this result with your own implementation.
 % [coord1, descriptor1] = sift(single(rgb2gray(im1)));
 % Find features and make descriptor of image 2
 loc2                  = DoG(im2,0.01);
 [r2, c2, sigma2]      = harris(im2, loc2);
 orient2               = zeros(size(sigma2));
-[coord2, descriptor2] = sift(single(rgb2gray(im2)), 'frames', [c2'; r2'; sigma2'; orient2']);
+[coord2, descriptor2] = vl_sift(single(rgb2gray(im2)), 'frames', [c2; r2; sigma2; orient2]);
 %  Custom implementation of sift. You can compare this result with your own implementation.
 % [coord2, descriptor2] = sift(single(rgb2gray(im2)));
 
@@ -52,11 +52,11 @@ for index1 = 1:size(descriptor1, 2)
         desc2 = double(descriptor2(:, index2));
 
         % Normalize the descriptors to unit L2 norm:
-        desc1 = ...
-        desc2 = ...
+        desc1 = desc1/norm(desc1);
+        desc2 = desc2/norm(desc2);
 
         % Compute the Euclidian distance of desc1 and desc2
-        dist = ...
+        dist = sqrt(sum((desc1 - desc2) .^ 2));
 
         % Threshold the distances
         if secondBestDist > dist
