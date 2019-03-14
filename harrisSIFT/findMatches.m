@@ -14,14 +14,14 @@ loc1                  = DoG(im1, 0.01);
 [r1, c1, sigma1]      = harris(im1, loc1);
 orient1               = zeros(size(sigma1));
 % Pay attention to the oder of parameters [c',r'] (equal to [x,y])
-[coord1, descriptor1] = vl_sift(single(rgb2gray(im1)), 'frames', [c1; r1; sigma1; orient1]);
+[coord1, descriptor1] = vl_sift(single(im1), 'frames', [c1; r1; sigma1; orient1]);
 %  Custom implementation of sift. You can compare this result with your own implementation.
 % [coord1, descriptor1] = sift(single(rgb2gray(im1)));
 % Find features and make descriptor of image 2
 loc2                  = DoG(im2,0.01);
 [r2, c2, sigma2]      = harris(im2, loc2);
 orient2               = zeros(size(sigma2));
-[coord2, descriptor2] = vl_sift(single(rgb2gray(im2)), 'frames', [c2; r2; sigma2; orient2]);
+[coord2, descriptor2] = vl_sift(single(im2), 'frames', [c2; r2; sigma2; orient2]);
 %  Custom implementation of sift. You can compare this result with your own implementation.
 % [coord2, descriptor2] = sift(single(rgb2gray(im2)));
 

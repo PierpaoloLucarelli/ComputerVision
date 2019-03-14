@@ -10,7 +10,7 @@ function [r, c, sigmas] = harris(im, loc)
     % NOTE: The sigma is independent of the window size (which dependes on the Laplacian responses).
     % Hint: use your previously implemented function in assignment 1 
     s = 1;
-    im = rgb2gray(im);
+%     im = rgb2gray(im);
     G = gaussian(1);
     Ix =  conv2(im, gaussianDer(G, s), 'same'); 
     Iy =  conv2(im, gaussianDer(G, s)', 'same'); 

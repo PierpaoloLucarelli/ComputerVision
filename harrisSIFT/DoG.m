@@ -10,7 +10,7 @@
 %   -loc: a matrix of nx3 with n found locations with [c, r, sigma]
 
 function loc = DoG(im,tf)
-    im = rgb2gray(im);
+%     im = rgb2gray(im);
     loc = [];
 
     % Prior smoothing sigma

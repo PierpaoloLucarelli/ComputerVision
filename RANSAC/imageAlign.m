@@ -10,11 +10,10 @@
 function [affine_transform, match1, match2] = imageAlign(im1, im2)
 
     % Load Images
-    im1 = im2double(imread('boat/img1.pgm'));
-    im2 = im2double(imread('boat/img2.pgm'));
-
+    im1 = imread('boat/img1.pgm');
+    im2 = imread('boat/img2.pgm');
     % Get the set of possible matches between descriptors from two image.
-    matches = findMatches(im, im2, 0.8);
+%     matches = findMatches(im1, im2, 0.8);
     % You can compare with your results with the custom sift implementation. 
     % You are advised to use this implementation for the final project, for more accurate results.
     % Note: You will get 1 bonus point for your own working implementation of the corner point detection and feature matching. 
