@@ -1,4 +1,4 @@
 *.mat
 *.m~
 .DS_Store
-vleaf/
+vlfeat/
