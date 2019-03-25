@@ -1,4 +1,8 @@
 *.mat
 *.m~
 .DS_Store
+*.png
+*.pgm
+*.jpg
+*.JPG
 vlfeat/

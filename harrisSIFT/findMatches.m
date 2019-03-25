@@ -9,6 +9,7 @@
 
 function [match1, match2] = findMatches(im1, im2, threshold)
 
+
 % Find features and make descriptor of image 1
 loc1                  = DoG(im1, 0.01);
 [r1, c1, sigma1]      = harris(im1, loc1);

@@ -1,6 +1,8 @@
-im = imread('landscape-a.jpg');
-im2 = imread('landscape-b.jpg');
-loc = DoG(im, 0.01);
+% im = rgb2gray(imread('landscape-a.jpg'));
+% im2 = rgb2gray(imread('landscape-b.jpg'));
+im = rgb2gray(imread('right.jpg'));
+im2 = rgb2gray(imread('left.jpg'));
+% loc = DoG(im, 0.01);
 % [r, c, sigmas] = harris(im, loc);
 % figure;
 % imshow(im);
@@ -10,3 +12,4 @@ loc = DoG(im, 0.01);
 % end
 
 [m1, m2] = findMatches(im, im2, 0.8);
+

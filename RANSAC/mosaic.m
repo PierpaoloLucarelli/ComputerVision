@@ -5,10 +5,9 @@
 % Output:
 %       imgout - stitched images
 function imgout = mosaic(varargin)
-
+    
     % Begin with first image
     imtarget = varargin{1};
-
     % Find the image corners
     w = size(imtarget,2);
     h = size(imtarget,1);
@@ -21,48 +20,37 @@ function imgout = mosaic(varargin)
 
     % For all other images
     for i = 2:nargin
-        % Load next image
-        imnew = ...
-    
-        % Get transformation of this new image to previous image
-	best_h = ...
-	
-	% Define the transformation matrix from 'best_h' (best affine parameters) 	
-        A(:,:,i) = ...
-    
-        % Combine the affine transformation with all previous matrices
-        % to get the transformation to the first image
+        imnew = varargin{i};
+        [best_h , ~, ~] = imageAlign(imnew, imtarget);
+        A(:,:,i) = best_h;
         accA(:,:,i) = A(:,:,i) * accA(:,:,i-1);
     
-        % Add the corners of this image
         w = size(imnew,2);
         h = size(imnew,1);
         corners = [corners (accA(:,:,i))*[1 1 1; w 1 1; 1 h 1; w h 1]'];
+        imtarget = imnew;
     end
-
-    % Find size of output image
-    minx = ...
-    maxx = ...
-    miny = ...
-    maxy = ...
-
-    % Output image
-    imgout = zeros(maxy-miny+1, maxx-minx+1, nargin);
-
-    % Output image coordinate system
-    xdata = [minx, maxx];
-    ydata = [miny, maxy];
-
-    % Transform each image to the coordinate system
+    
+    corners(1,:) = corners(1,:) + max(0, -min(corners(1,:)-1)); 
+    corners(2,:) = corners(2,:) + max(0, -min(corners(2,:)-1)); 
+    
+    minx = min(corners(1, :));
+    maxx = max(corners(1, :));
+    miny = min(corners(2, :));
+    maxy = max(corners(2, :));
+   
+    imgout = zeros(ceil(maxy-miny), ceil(maxx-minx), nargin);
+    topleft = ceil(corners(1:2, 1:4:end));
+    topright = ceil(corners(1:2, 2:4:end));
+    bottomleft = ceil(corners(1:2, 3:4:end));
+    
     for i=1:nargin
-        tform         = ...
-        newtimg       = imtransform(...
-        imgout(:,:,i) = newtimg;
+        y_offset = min(topleft(2, i), topright(2, i));
+        x_offset = min(topleft(1, i), bottomleft(1, i));
+        tform         = affine2d(accA(:,:,i)');
+        newtimg       = imwarp(varargin{i}, tform, 'bicubic'); 
+        imgout(y_offset:y_offset+size(newtimg,1)-1, x_offset:x_offset+size(newtimg, 2)-1, i) = newtimg;
     end
-
-    % Blending methods to combine: nanmedian (stable for longer sequences of images)
-    imgout = nanmean();
-
-    % Show stitched image
-    figure; imshow(imgout);
+    imgout = nanmax(imgout,[], 3);
+    figure; imshow(uint8(imgout));
 end
