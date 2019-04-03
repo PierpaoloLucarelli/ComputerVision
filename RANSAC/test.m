@@ -1,5 +1,5 @@
-im1 = rgb2gray(imread('left.jpg'));
-im2 = rgb2gray(imread('right.jpg'));
+% im1 = rgb2gray(imread('left.jpg'));
+% im2 = rgb2gray(imread('right.jpg'));
 
 % im1 = imread('./boat/img1.pgm');
 % im2 = imread('./boat/img2.pgm');
