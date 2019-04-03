@@ -1,5 +1,6 @@
 *.mat
 *.m~
+*.zip
 .DS_Store
 *.png
 *.pgm
